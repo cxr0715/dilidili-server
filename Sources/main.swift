@@ -31,6 +31,12 @@ func handler(request: HTTPRequest, response: HTTPResponse) {
 	response.completed()
 }
 
+func handlerCrawler(request: HTTPRequest, response: HTTPResponse) {
+    response.setHeader(.contentType, value: "text/html")
+    response.appendBody(string: Crawler.requestData())
+    response.completed()
+}
+
 // Configuration data for an example server.
 // This example configuration shows how to launch a server
 // using a configuration dictionary.
@@ -48,6 +54,7 @@ let confData = [
 			"port":8181,
 			"routes":[
 				["method":"get", "uri":"/", "handler":handler],
+                ["method":"get", "uri":"/crawler", "handler":handlerCrawler],
 				["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
 				 "documentRoot":"./webroot",
 				 "allowResponseFilters":true]
@@ -69,5 +76,3 @@ do {
 } catch {
     fatalError("\(error)") // fatal error launching one of the servers
 }
-
-    Crawler.requestData()

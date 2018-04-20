@@ -10,16 +10,19 @@ import PerfectCURL
 import PerfectXML
 
 class Crawler: NSObject {
-    static func requestData() {
+    static func requestData() -> String {
         let url = "http://www.dilidili.wang/watch3/61940/"
+        var resultHTML:String = ""
         do {
-            let resultHTML : String = try CURLRequest(url).perform().bodyString
+            resultHTML = try CURLRequest(url).perform().bodyString
             extendHTML(html: resultHTML)
         } catch {
             print("ERROR")
         }
+        return resultHTML
     }
     static func extendHTML(html:String) {
-        print(html)
+        let xDoc = HTMLDocument(fromSource: html)
+        print(xDoc)
     }
 }
