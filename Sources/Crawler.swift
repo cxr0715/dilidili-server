@@ -80,7 +80,6 @@ class Crawler: NSObject {
     static func extendHTML(html:String) {
         let str:NSString = html as NSString
         let videoURL1 = videoURL(videoURL: str)
-        print(videoURL1)
         var nextVideoArray : Array<String> = Array()
         var titleArray : Array<String> = Array()
         var indexArray : Array<String> = Array()
