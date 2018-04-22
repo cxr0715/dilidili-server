@@ -33,7 +33,9 @@ func handler(request: HTTPRequest, response: HTTPResponse) {
 
 func handlerCrawler(request: HTTPRequest, response: HTTPResponse) {
     response.setHeader(.contentType, value: "text/html")
-    response.appendBody(string: Crawler.requestData())
+    let url = "http://www.dilidili.wang/watch3/61940/"
+//    let url = "http://www.hunliji.com/community"
+    response.appendBody(string: Crawler.requestData(url: url))
     response.completed()
 }
 
