@@ -14,9 +14,14 @@ class Crawler: NSObject {
         var resultHTML:String = ""
         do {
             resultHTML = try CURLRequest(url).perform().bodyString
-            getAnimeTitle(html: resultHTML as NSString)
-            getAnimeImage(html: resultHTML as NSString)
-            extendHTML(html: resultHTML)
+            let animeID = 1
+            let animeTitle = getAnimeTitle(html: resultHTML as NSString)
+            let animeImage = getAnimeImage(html: resultHTML as NSString)
+            let resultObject = extendHTML(html: resultHTML)
+            let DBresult = MySQLOperation.insertToDataBase(animeID: animeID, animeTitle: animeTitle, animeImage: animeImage, vidoeURLArray: resultObject.vidoeURLArray, titleArray: resultObject.titleArray, indexArray: resultObject.indexArray)
+            if DBresult {
+                print("insertSuccess")
+            }
         } catch {
             print("ERROR")
         }
@@ -77,9 +82,9 @@ class Crawler: NSObject {
     /// Crawler
     ///
     /// - Parameter html: D站网址
-    static func extendHTML(html:String) {
-        let str:NSString = html as NSString
-        let videoURL1 = videoURL(videoURL: str)
+    static func extendHTML(html:String) -> (vidoeURLArray:Array<String>, titleArray:Array<String>, indexArray:Array<String>) {
+//        let str:NSString = html as NSString
+//        let videoURL1 = videoURL(videoURL: str)
         var nextVideoArray : Array<String> = Array()
         var titleArray : Array<String> = Array()
         var indexArray : Array<String> = Array()
@@ -119,5 +124,6 @@ class Crawler: NSObject {
                 print("ERROR")
             }
         }
+        return (vidoeURLArray, titleArray, indexArray)
     }
 }
