@@ -16,6 +16,8 @@ let ErrorMessageKey = "errorMessage"
 var BaseResponseJson: [String : Any] = [ResultListKey:[], ResultKey:RequestResultSuccess, ErrorMessageKey:""]
 
 class MySQLOperation {
+    
+    /// 获取mysql单例
     var responseJson: [String : Any] = BaseResponseJson
     var mysql : MySQL {
         get {
@@ -23,6 +25,17 @@ class MySQLOperation {
         }
     }
     
+    
+    /// 插入数据到home表
+    ///
+    /// - Parameters:
+    ///   - animeID: 动画id
+    ///   - animeTitle: 动画标题
+    ///   - animeImage: 动画封面图片地址
+    ///   - vidoeURLArray: 动画每集播放地址
+    ///   - titleArray: 动画每集标题
+    ///   - indexArray: 动画每集集数
+    /// - Returns: 插入数据是否成功
     func insertToDataBase(animeID:Int, animeTitle:String, animeImage:String, vidoeURLArray:Array<String>, titleArray:Array<String>, indexArray:Array<String>) -> Bool {
         let homeValues = "(\(animeID), '\(animeTitle)', '\(animeImage)')"
         let homeStatement = "insert into home (id, animateTitle, animateImage) values \(homeValues)"
@@ -49,6 +62,10 @@ class MySQLOperation {
         return isHomeSuccess
     }
     
+    
+    /// 查询home表
+    ///
+    /// - Returns: 返回查询json结果
     func selectHomeTabelData() -> String? {
         let statement = "select * from home"
         let isHomeSelectSuccess = self.mysql.query(statement: statement)
@@ -76,6 +93,11 @@ class MySQLOperation {
         return josn
     }
     
+    
+    /// 查询video的每集信息
+    ///
+    /// - Parameter animateID: 动画id
+    /// - Returns: 返回查询json结果
     func selectVideoTabelData(animateID:String) -> String? {
         let videoValues = "('\(animateID)')"
         let statement = "select * from video where animateID=\(videoValues)"
