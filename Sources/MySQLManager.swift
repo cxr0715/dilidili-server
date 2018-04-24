@@ -11,7 +11,7 @@ import PerfectMySQL
 class MySQLManager {
     let testHost = "127.0.0.1"
     let testUser = "root"
-    let testPassword = "123456"
+    let testPassword = "dw123456"
     let testDB = "dilidili"
     var mysql : MySQL!
     static let shareInstance = MySQLManager.init()

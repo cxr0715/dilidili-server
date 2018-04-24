@@ -18,7 +18,7 @@ class Crawler: NSObject {
             let animeTitle = getAnimeTitle(html: resultHTML as NSString)
             let animeImage = getAnimeImage(html: resultHTML as NSString)
             let resultObject = extendHTML(html: resultHTML)
-            let DBresult = MySQLOperation.insertToDataBase(animeID: animeID, animeTitle: animeTitle, animeImage: animeImage, vidoeURLArray: resultObject.vidoeURLArray, titleArray: resultObject.titleArray, indexArray: resultObject.indexArray)
+            let DBresult = MySQLOperation().insertToDataBase(animeID: animeID, animeTitle: animeTitle, animeImage: animeImage, vidoeURLArray: resultObject.vidoeURLArray, titleArray: resultObject.titleArray, indexArray: resultObject.indexArray)
             if DBresult {
                 print("insertSuccess")
             }
