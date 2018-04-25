@@ -72,17 +72,19 @@ class MySQLOperation {
         if isHomeSelectSuccess {
             // 在当前会话过程中保存查询结果
             let results = mysql.storeResults()!
-            var dic = [String:String]() //创建一个字典数于存储结果
+            var array = [[String:String]]() //创建一个字典数组用于存储结果
             results.forEachRow { row in
                 guard let id = row.first! else {//保存选项表的id名称字段，应该是所在行的第一列，所以是row[0].
                     return
                 }
+                var dic = [String:String]() //创建一个字典数于存储结果
                 dic["id"] = "\(id)"
                 dic["animateTitle"] = "\(row[1]!)"
                 dic["animateImage"] = "\(row[2]!)"
-                self.responseJson[ResultKey] = RequestResultSuccess
-                self.responseJson[ResultListKey] = dic
+                array.append(dic)
             }
+            self.responseJson[ResultKey] = RequestResultSuccess
+            self.responseJson[ResultListKey] = array
         } else {
             self.responseJson[ResultKey] = RequestResultFaile
             self.responseJson[ErrorMessageKey] = "查询失败"
