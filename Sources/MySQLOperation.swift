@@ -48,7 +48,7 @@ class MySQLOperation {
         
         let headEmpty = indexArray.count - vidoeURLArray.count
         for i in 0..<indexArray.count {
-            if i < indexArray.count - 1 {
+            if i < indexArray.count - 1 && i < vidoeURLArray.count && i < titleArray.count && i < indexArray.count {
                 let videoValues = "(\(animeID), '\(vidoeURLArray[i])', '\(titleArray[i+headEmpty])', '\(indexArray[i+headEmpty])')"
                 let videoStatement = "insert into video (animateID, animateURL, animateName, animateIndex) values \(videoValues)"
                 let isVideoSuccess = self.mysql.query(statement: videoStatement)

@@ -35,8 +35,11 @@ func handler(request: HTTPRequest, response: HTTPResponse) {
 
 func handlerCrawler(request: HTTPRequest, response: HTTPResponse) {
     response.setHeader(.contentType, value: "text/html")
-    let url = "http://www.dilidili.wang/watch3/61940/"
-//    let url = "http://www.hunliji.com/community"
+//    let url = "http://www.dilidili.wang/watch3/61940/"//擅长捉弄人的高木同学
+//    let url = "http://www.dilidili.wang/watch3/61925/"//pop and pipi
+//    let url = "http://www.dilidili.wang/watch3/62925/"//黑社会的超能力女儿
+//    let url = "http://www.dilidili.wang/watch3/63187/"//食戟之灵第三季 远月列车篇
+    let url = "http://www.dilidili.wang/watch3/63147/"//MEGALO BOX
     response.appendBody(string: Crawler.requestData(url: url))
     response.completed()
 }

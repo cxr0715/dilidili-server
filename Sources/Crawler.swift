@@ -14,7 +14,7 @@ class Crawler: NSObject {
         var resultHTML:String = ""
         do {
             resultHTML = try CURLRequest(url).perform().bodyString
-            let animeID = 1
+            let animeID = 5
             let animeTitle = getAnimeTitle(html: resultHTML as NSString)
             let animeImage = getAnimeImage(html: resultHTML as NSString)
             let resultObject = extendHTML(html: resultHTML)
