@@ -21,7 +21,7 @@ class MySQLOperation {
     var responseJson: [String : Any] = BaseResponseJson
     var mysql : MySQL {
         get {
-            return MySQLManager.shareInstance.mysql
+            return MySQLManager.shareInstance.mysql!
         }
     }
     

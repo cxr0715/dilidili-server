@@ -10,14 +10,14 @@ import PerfectCURL
 import PerfectXML
 
 class Crawler: NSObject {
-    static func requestData(url:String) -> String {
+    func requestData(url:String) -> String {
         var resultHTML:String = ""
         do {
             resultHTML = try CURLRequest(url).perform().bodyString
-            let animeID = 5
-            let animeTitle = getAnimeTitle(html: resultHTML as NSString)
-            let animeImage = getAnimeImage(html: resultHTML as NSString)
-            let resultObject = extendHTML(html: resultHTML)
+            let animeID = 11
+            let animeTitle = self.getAnimeTitle(html: resultHTML as NSString)
+            let animeImage = self.getAnimeImage(html: resultHTML as NSString)
+            let resultObject = self.extendHTML(html: resultHTML)
             let DBresult = MySQLOperation().insertToDataBase(animeID: animeID, animeTitle: animeTitle, animeImage: animeImage, vidoeURLArray: resultObject.vidoeURLArray, titleArray: resultObject.titleArray, indexArray: resultObject.indexArray)
             if DBresult {
                 print("insertSuccess")
@@ -32,7 +32,7 @@ class Crawler: NSObject {
     ///
     /// - Parameter videoURL: D站网址
     /// - Returns: 播放地址
-    static func videoURL(videoURL:NSString) -> String {
+    func videoURL(videoURL:NSString) -> String {
         let index:Int = videoURL.range(of: ".mp4").location
         if index != NSNotFound {
             let subString:NSString = videoURL.substring(to: index+4) as NSString
@@ -51,7 +51,7 @@ class Crawler: NSObject {
     ///
     /// - Parameter html: D站网址
     /// - Returns: 封面image
-    static func getAnimeImage(html:NSString) -> String {
+    func getAnimeImage(html:NSString) -> String {
         let index:Int = html.range(of: "<div class=\"con24 player_img\"><img src=\"").location
         if index != NSNotFound {
             let subString:NSString = html.substring(from: index + 40) as NSString
@@ -67,7 +67,7 @@ class Crawler: NSObject {
     ///
     /// - Parameter html: D站网址
     /// - Returns: animate标题
-    static func getAnimeTitle(html:NSString) -> String {
+    func getAnimeTitle(html:NSString) -> String {
         let index:Int = html.range(of: "<meta name=\"keywords\" content=\"").location
         if index != NSNotFound {
             let subString:NSString = html.substring(from: index + 31) as NSString
@@ -82,9 +82,7 @@ class Crawler: NSObject {
     /// Crawler
     ///
     /// - Parameter html: D站网址
-    static func extendHTML(html:String) -> (vidoeURLArray:Array<String>, titleArray:Array<String>, indexArray:Array<String>) {
-//        let str:NSString = html as NSString
-//        let videoURL1 = videoURL(videoURL: str)
+    func extendHTML(html:String) -> (vidoeURLArray:Array<String>, titleArray:Array<String>, indexArray:Array<String>) {
         var nextVideoArray : Array<String> = Array()
         var titleArray : Array<String> = Array()
         var indexArray : Array<String> = Array()
